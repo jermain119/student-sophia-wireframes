@@ -1,0 +1,199 @@
+/* Base Styles for Wireframes */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Index Page Styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.wireframe-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.mobile-section, .desktop-section {
+    border: 2px solid #333;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.wireframe-links h2 {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.wireframe-links ul {
+    list-style: none;
+}
+
+.wireframe-links li {
+    margin-bottom: 10px;
+}
+
+.wireframe-links a {
+    display: block;
+    padding: 10px;
+    border: 1px solid #333;
+    text-decoration: none;
+    color: #333;
+    text-align: center;
+    background-color: #fff;
+}
+
+.wireframe-links a:hover {
+    background-color: #eee;
+}
+
+/* Wireframe Base Styles */
+.wireframe {
+    margin: 0 auto;
+    border: 2px solid #333;
+    background-color: #fff;
+}
+
+.wireframe-header {
+    border-bottom: 2px solid #333;
+    padding: 15px;
+    background-color: #f5f5f5;
+}
+
+.wireframe-nav {
+    border-bottom: 1px solid #333;
+    padding: 10px;
+    background-color: #eee;
+}
+
+.wireframe-main {
+    padding: 20px;
+    min-height: 400px;
+}
+
+.wireframe-footer {
+    border-top: 2px solid #333;
+    padding: 15px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+/* Mobile Wireframe Styles */
+.mobile-wireframe {
+    width: 375px;
+    min-height: 600px;
+}
+
+.mobile-wireframe .wireframe-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.mobile-wireframe .wireframe-nav li {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+
+/* Desktop Wireframe Styles */
+.desktop-wireframe {
+    width: 1200px;
+    min-height: 700px;
+}
+
+.desktop-wireframe .wireframe-nav ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.desktop-wireframe .wireframe-nav li {
+    border: 1px solid #333;
+    padding: 10px 20px;
+}
+
+/* Common Elements */
+.placeholder-box {
+    border: 2px dashed #666;
+    padding: 20px;
+    margin: 15px 0;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.placeholder-image {
+    border: 2px solid #333;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.placeholder-button {
+    border: 2px solid #333;
+    background-color: #ddd;
+    padding: 10px 20px;
+    display: inline-block;
+    margin: 10px 5px;
+    text-align: center;
+}
+
+.placeholder-text {
+    border: 1px solid #999;
+    background-color: #f0f0f0;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.grid-layout {
+    display: grid;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.two-column {
+    grid-template-columns: 1fr 1fr;
+}
+
+.three-column {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.navigation-links {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.navigation-links a {
+    margin: 0 10px;
+    padding: 5px 10px;
+    border: 1px solid #333;
+    text-decoration: none;
+    color: #333;
+    background-color: #f0f0f0;
+}
+
+ul {
+    list-style: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .wireframe-links {
+        grid-template-columns: 1fr;
+    }
+}
