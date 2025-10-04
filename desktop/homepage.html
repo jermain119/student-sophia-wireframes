@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage - Desktop Wireframe</title>
     <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js"></script>
 </head>
 <body>
     <div class="wireframe desktop-wireframe">
@@ -105,8 +106,8 @@
             <div class="placeholder-box" style="margin: 30px 0;">
                 <strong>NEWSLETTER SIGNUP SECTION</strong>
                 <div style="display: flex; gap: 10px; justify-content: center; margin-top: 15px;">
-                    <div class="placeholder-text" style="flex: 1; max-width: 300px;">EMAIL INPUT FIELD</div>
-                    <div class="placeholder-button">SUBSCRIBE</div>
+                    <input type="email" id="email-input" placeholder="Enter your email" style="flex: 1; max-width: 300px; padding: 10px; border: 1px solid #333;">
+                    <div class="placeholder-button" onclick="subscribeNewsletter()" style="cursor: pointer;">SUBSCRIBE</div>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Desktop Wireframe</title>
     <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js"></script>
 </head>
 <body>
     <div class="wireframe desktop-wireframe">
@@ -160,12 +161,33 @@
             
             <!-- Contact CTA -->
             <div class="placeholder-box" style="margin: 40px 0; text-align: center;">
-                <strong>READY TO WORK WITH US?</strong>
+                <strong>CONTACT US</strong>
                 <div class="placeholder-text">
-                    CONTACT CALL TO ACTION TEXT
+                    FILL OUT THE FORM BELOW TO GET IN TOUCH
                 </div>
-                <div class="placeholder-button" style="margin-top: 15px;">
-                    CONTACT US TODAY
+                
+                <!-- Contact Form -->
+                <div style="max-width: 500px; margin: 20px auto; text-align: left;">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Name *</label>
+                        <input type="text" id="contact-name" placeholder="Your full name" style="width: 100%; padding: 10px; border: 1px solid #333;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Email *</label>
+                        <input type="email" id="contact-email" placeholder="your.email@example.com" style="width: 100%; padding: 10px; border: 1px solid #333;">
+                    </div>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Message *</label>
+                        <textarea id="contact-message" placeholder="Tell us about your project..." rows="5" style="width: 100%; padding: 10px; border: 1px solid #333; resize: vertical;"></textarea>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div class="placeholder-button" onclick="submitContactForm()" style="cursor: pointer; margin-top: 15px;">
+                            SEND MESSAGE
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
