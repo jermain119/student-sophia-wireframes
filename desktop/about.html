@@ -179,13 +179,26 @@
                     </div>
                     
                     <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Message *</label>
-                        <textarea id="contact-message" placeholder="Tell us about your project..." rows="5" style="width: 100%; padding: 10px; border: 1px solid #333; resize: vertical;"></textarea>
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Custom Order Details *</label>
+                        <textarea id="contact-message" placeholder="Describe your custom order requirements..." rows="5" style="width: 100%; padding: 10px; border: 1px solid #333; resize: vertical;"></textarea>
                     </div>
                     
                     <div style="text-align: center;">
                         <div class="placeholder-button" onclick="submitContactForm()" style="cursor: pointer; margin-top: 15px;">
-                            SEND MESSAGE
+                            SUBMIT CUSTOM ORDER
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Admin Panel (for testing localStorage) -->
+                <div style="margin-top: 30px; text-align: center; padding: 15px; border: 1px dashed #333;">
+                    <div style="margin-bottom: 10px;"><strong>ADMIN PANEL (Testing localStorage)</strong></div>
+                    <div style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
+                        <div class="placeholder-button" onclick="viewCustomerOrders()" style="cursor: pointer; font-size: 12px;">
+                            VIEW CUSTOMER ORDERS
+                        </div>
+                        <div class="placeholder-button" onclick="viewOrderHistory()" style="cursor: pointer; font-size: 12px;">
+                            VIEW ORDER HISTORY
                         </div>
                     </div>
                 </div>
