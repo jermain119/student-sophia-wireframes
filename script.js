@@ -1,8 +1,22 @@
 // JavaScript for Wireframe Interactive Features
 // Touchstone Task 5 - Web Storage Features
 
-// Initialize cart from sessionStorage
-let cart = JSON.parse(sessionStorage.getItem('shoppingCart')) || [];
+// Initialize cart safely
+let cart = [];
+
+// Safely initialize cart from sessionStorage
+function initializeCart() {
+    try {
+        const storedCart = sessionStorage.getItem('shoppingCart');
+        cart = storedCart ? JSON.parse(storedCart) : [];
+    } catch (error) {
+        console.log('SessionStorage not available, using local cart');
+        cart = [];
+    }
+}
+
+// Call initialization when script loads
+initializeCart();
 
 // Newsletter Subscribe Functionality (for all pages)
 function subscribeNewsletter() {
@@ -25,14 +39,31 @@ function addToCart(itemName) {
     };
     
     cart.push(item);
-    sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+    
+    // Safely save to sessionStorage
+    try {
+        sessionStorage.setItem('shoppingCart', JSON.stringify(cart));
+        console.log('Cart saved to sessionStorage');
+    } catch (error) {
+        console.log('SessionStorage not available, cart saved locally');
+    }
+    
     alert('Item added to the cart');
-    console.log('Cart contents saved to sessionStorage:', cart);
+    console.log('Cart contents:', cart);
 }
 
 // Gallery View Cart Functionality (NEW)
 function viewCart() {
-    const cartData = JSON.parse(sessionStorage.getItem('shoppingCart')) || [];
+    let cartData = [];
+    
+    // Safely get cart data
+    try {
+        const storedCart = sessionStorage.getItem('shoppingCart');
+        cartData = storedCart ? JSON.parse(storedCart) : cart;
+    } catch (error) {
+        cartData = cart;
+        console.log('Using local cart data');
+    }
     
     if (cartData.length === 0) {
         alert('Your cart is empty.');
@@ -57,45 +88,76 @@ function viewCart() {
 
 // Gallery Clear Cart Functionality with sessionStorage
 function clearCart() {
-    const cartData = JSON.parse(sessionStorage.getItem('shoppingCart')) || [];
+    let cartData = [];
+    
+    // Safely get cart data
+    try {
+        const storedCart = sessionStorage.getItem('shoppingCart');
+        cartData = storedCart ? JSON.parse(storedCart) : cart;
+    } catch (error) {
+        cartData = cart;
+    }
     
     if (cartData.length > 0) {
         cart = [];
-        sessionStorage.removeItem('shoppingCart');
+        
+        // Safely clear sessionStorage
+        try {
+            sessionStorage.removeItem('shoppingCart');
+            console.log('Cart cleared from sessionStorage');
+        } catch (error) {
+            console.log('Local cart cleared');
+        }
+        
         alert('Cart cleared');
     } else {
         alert('No items to clear.');
     }
-    console.log('Cart cleared from sessionStorage');
 }
 
 // Gallery Process Order Functionality with sessionStorage
 function processOrder() {
-    const cartData = JSON.parse(sessionStorage.getItem('shoppingCart')) || [];
+    let cartData = [];
+    
+    // Safely get cart data
+    try {
+        const storedCart = sessionStorage.getItem('shoppingCart');
+        cartData = storedCart ? JSON.parse(storedCart) : cart;
+    } catch (error) {
+        cartData = cart;
+    }
     
     if (cartData.length > 0) {
         // Save order to localStorage for order history
-        const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
-        const newOrder = {
-            orderId: 'ORD-' + Date.now(),
-            items: cartData,
-            orderDate: new Date().toLocaleString(),
-            totalItems: cartData.length,
-            totalPrice: cartData.reduce((sum, item) => sum + item.price, 0)
-        };
-        
-        orderHistory.push(newOrder);
-        localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+        try {
+            const orderHistory = JSON.parse(localStorage.getItem('orderHistory')) || [];
+            const newOrder = {
+                orderId: 'ORD-' + Date.now(),
+                items: cartData,
+                orderDate: new Date().toLocaleString(),
+                totalItems: cartData.length,
+                totalPrice: cartData.reduce((sum, item) => sum + item.price, 0)
+            };
+            
+            orderHistory.push(newOrder);
+            localStorage.setItem('orderHistory', JSON.stringify(orderHistory));
+            console.log('Order saved to localStorage');
+        } catch (error) {
+            console.log('Order processed locally');
+        }
         
         // Clear cart after processing
         cart = [];
-        sessionStorage.removeItem('shoppingCart');
+        try {
+            sessionStorage.removeItem('shoppingCart');
+        } catch (error) {
+            console.log('Local cart cleared');
+        }
         
         alert('Thank you for your order');
     } else {
         alert('Cart is empty.');
     }
-    console.log('Order processed and saved to localStorage');
 }
 
 // Contact Form Submission Functionality with localStorage
@@ -120,10 +182,15 @@ function submitContactForm() {
             orderType: 'Custom Order Request'
         };
         
-        // Get existing customer data or create new array
-        const customerData = JSON.parse(localStorage.getItem('customerOrders')) || [];
-        customerData.push(customerInfo);
-        localStorage.setItem('customerOrders', JSON.stringify(customerData));
+        // Safely save to localStorage
+        try {
+            const customerData = JSON.parse(localStorage.getItem('customerOrders')) || [];
+            customerData.push(customerInfo);
+            localStorage.setItem('customerOrders', JSON.stringify(customerData));
+            console.log('Customer information saved to localStorage:', customerInfo);
+        } catch (error) {
+            console.log('Customer information saved locally:', customerInfo);
+        }
         
         alert('Thank you for your message');
         
@@ -131,8 +198,6 @@ function submitContactForm() {
         name.value = '';
         email.value = '';
         message.value = '';
-        
-        console.log('Customer information saved to localStorage:', customerInfo);
     } else {
         alert('Please fill in all required fields (Name, Email, and Message).');
     }
@@ -140,40 +205,48 @@ function submitContactForm() {
 
 // View stored customer orders (for testing localStorage)
 function viewCustomerOrders() {
-    const orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
-    if (orders.length === 0) {
-        alert('No customer orders found in localStorage.');
-        return;
+    try {
+        const orders = JSON.parse(localStorage.getItem('customerOrders')) || [];
+        if (orders.length === 0) {
+            alert('No customer orders found in localStorage.');
+            return;
+        }
+        
+        let orderDisplay = '📋 CUSTOMER ORDERS (localStorage)\n\n';
+        orders.forEach((order, index) => {
+            orderDisplay += `${index + 1}. ${order.name} (${order.email})\n`;
+            orderDisplay += `   Order Type: ${order.orderType}\n`;
+            orderDisplay += `   Date: ${order.submitDate}\n`;
+            orderDisplay += `   Message: ${order.message}\n\n`;
+        });
+        
+        alert(orderDisplay);
+    } catch (error) {
+        alert('Error accessing localStorage. No customer orders available.');
     }
-    
-    let orderDisplay = '📋 CUSTOMER ORDERS (localStorage)\n\n';
-    orders.forEach((order, index) => {
-        orderDisplay += `${index + 1}. ${order.name} (${order.email})\n`;
-        orderDisplay += `   Order Type: ${order.orderType}\n`;
-        orderDisplay += `   Date: ${order.submitDate}\n`;
-        orderDisplay += `   Message: ${order.message}\n\n`;
-    });
-    
-    alert(orderDisplay);
 }
 
 // View order history (for testing localStorage)
 function viewOrderHistory() {
-    const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
-    if (orders.length === 0) {
-        alert('No order history found in localStorage.');
-        return;
+    try {
+        const orders = JSON.parse(localStorage.getItem('orderHistory')) || [];
+        if (orders.length === 0) {
+            alert('No order history found in localStorage.');
+            return;
+        }
+        
+        let historyDisplay = '📦 ORDER HISTORY (localStorage)\n\n';
+        orders.forEach((order, index) => {
+            historyDisplay += `${index + 1}. Order ${order.orderId}\n`;
+            historyDisplay += `   Items: ${order.totalItems}\n`;
+            historyDisplay += `   Total: $${order.totalPrice}\n`;
+            historyDisplay += `   Date: ${order.orderDate}\n\n`;
+        });
+        
+        alert(historyDisplay);
+    } catch (error) {
+        alert('Error accessing localStorage. No order history available.');
     }
-    
-    let historyDisplay = '📦 ORDER HISTORY (localStorage)\n\n';
-    orders.forEach((order, index) => {
-        historyDisplay += `${index + 1}. Order ${order.orderId}\n`;
-        historyDisplay += `   Items: ${order.totalItems}\n`;
-        historyDisplay += `   Total: $${order.totalPrice}\n`;
-        historyDisplay += `   Date: ${order.orderDate}\n\n`;
-    });
-    
-    alert(historyDisplay);
 }
 
 // Service Request Functionality (for custom/services page)
