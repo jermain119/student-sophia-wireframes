@@ -1,11 +1,14 @@
 // JavaScript for Wireframe Interactive Features
 // Touchstone Task 4 - Dynamic Features
 
+// Cart management
+let cart = [];
+
 // Newsletter Subscribe Functionality (for all pages)
 function subscribeNewsletter() {
-    const email = document.getElementById('email-input');
+    const email = document.getElementById('newsletter-email');
     if (email && email.value.trim() !== '') {
-        alert(`Thank you for subscribing with email: ${email.value}`);
+        alert('Thank you for subscribing.');
         email.value = ''; // Clear the input
     } else {
         alert('Please enter a valid email address to subscribe.');
@@ -14,7 +17,31 @@ function subscribeNewsletter() {
 
 // Gallery Add to Cart Functionality
 function addToCart(itemName) {
-    alert(`"${itemName}" has been added to your cart!`);
+    cart.push(itemName);
+    alert('Item added to the cart');
+    console.log('Cart contents:', cart);
+}
+
+// Gallery Clear Cart Functionality
+function clearCart() {
+    if (cart.length > 0) {
+        cart = [];
+        alert('Cart cleared');
+    } else {
+        alert('No items to clear.');
+    }
+    console.log('Cart contents after clear:', cart);
+}
+
+// Gallery Process Order Functionality
+function processOrder() {
+    if (cart.length > 0) {
+        alert('Thank you for your order');
+        cart = []; // Clear cart after processing order
+    } else {
+        alert('Cart is empty.');
+    }
+    console.log('Cart contents after processing:', cart);
 }
 
 // Contact Form Submission Functionality
@@ -29,7 +56,7 @@ function submitContactForm() {
         email.value.trim() !== '' && 
         message.value.trim() !== '') {
         
-        alert(`Thank you ${name.value}! Your message has been sent successfully. We'll get back to you at ${email.value}.`);
+        alert('Thank you for your message');
         
         // Clear the form
         name.value = '';
